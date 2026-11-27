@@ -1,0 +1,122 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Crossbones</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:20px;background:#14121a;color:#eee}
+h1{margin:0}.sub{color:#aaa;margin:4px 0 16px}
+.wrap{display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start}
+#gridbox{overflow:auto;max-width:100%}
+table{border-collapse:collapse}
+td{width:30px;height:30px;padding:0;position:relative}
+td.on input{width:100%;height:100%;box-sizing:border-box;border:1px solid #555;text-align:center;
+ font:bold 16px monospace;padding:0;background:#fff;color:#111;text-transform:uppercase}
+td.on input.hl{background:#ffe9a8}
+td.on input.good{background:#b9f0c0}
+td.on input.bad{background:#ffb3b3}
+.n{position:absolute;top:0;left:2px;font-size:9px;color:#333;pointer-events:none}
+.clues{max-width:560px}
+.clue{padding:4px 6px;cursor:pointer;border-radius:4px}
+.clue:hover,.clue.sel{background:#2d2840}
+.origin{color:#9fe3a8;font-family:monospace;font-size:12px;margin-top:2px}
+button{margin:0 6px 12px 0;padding:6px 12px;border:0;border-radius:6px;background:#6c3fd6;color:#fff;cursor:pointer}
+h3{margin:14px 0 4px}
+</style></head><body>
+<h1>Crossbones</h1>
+<div class="sub">Solve the puzzle to learn the codebase. Every answer is a verified symbol from the repo.</div>
+<button onclick="check()">Check</button>
+<button onclick="revealWord()">Reveal word</button>
+<button onclick="revealAll()">Reveal all</button>
+<button onclick="clearAll()">Clear</button>
+<div class="wrap">
+ <div id="gridbox"><table id="grid"></table></div>
+ <div class="clues"><h3>Across</h3><div id="across"></div><h3>Down</h3><div id="down"></div></div>
+</div>
+<script>
+const D={"h": 39, "w": 40, "cells": [[11, 13, "I"], [11, 14, "N"], [11, 15, "T"], [11, 16, "E"], [11, 17, "R"], [11, 18, "P"], [11, 19, "R"], [11, 20, "E"], [11, 21, "T"], [11, 22, "C"], [11, 23, "O"], [11, 24, "L"], [11, 25, "O"], [11, 26, "R"], [10, 23, "F"], [12, 23, "R"], [13, 23, "M"], [14, 23, "A"], [15, 23, "T"], [16, 23, "H"], [17, 23, "E"], [18, 23, "L"], [19, 23, "P"], [20, 23, "T"], [21, 23, "E"], [22, 23, "X"], [23, 23, "T"], [8, 16, "M"], [9, 16, "A"], [10, 16, "K"], [12, 16, "S"], [13, 16, "U"], [14, 16, "B"], [15, 16, "C"], [16, 16, "O"], [17, 16, "N"], [18, 16, "T"], [19, 16, "E"], [20, 16, "X"], [21, 16, "T"], [10, 25, "C"], [12, 25, "M"], [13, 25, "P"], [14, 25, "L"], [15, 25, "E"], [16, 25, "T"], [17, 25, "I"], [18, 25, "O"], [19, 25, "N"], [20, 25, "I"], [21, 25, "T"], [22, 25, "E"], [23, 25, "M"], [9, 19, "F"], [10, 19, "O"], [12, 19, "M"], [13, 19, "A"], [14, 19, "T"], [15, 19, "C"], [16, 19, "O"], [17, 19, "M"], [18, 19, "M"], [19, 19, "A"], [20, 19, "N"], [21, 19, "D"], [22, 19, "S"], [12, 13, "S"], [13, 13, "A"], [14, 13, "S"], [15, 13, "C"], [16, 13, "I"], [17, 13, "I"], [18, 13, "E"], [19, 13, "N"], [20, 13, "C"], [21, 13, "O"], [22, 13, "D"], [23, 13, "I"], [24, 13, "N"], [25, 13, "G"], [9, 21, "G"], [10, 21, "E"], [12, 21, "B"], [13, 21, "E"], [14, 21, "S"], [15, 21, "T"], [16, 21, "E"], [17, 21, "N"], [18, 21, "C"], [19, 21, "O"], [20, 21, "D"], [21, 21, "I"], [22, 21, "N"], [23, 21, "G"], [25, 5, "F"], [25, 6, "O"], [25, 7, "R"], [25, 8, "M"], [25, 9, "A"], [25, 10, "T"], [25, 11, "A"], [25, 12, "R"], [25, 14, "U"], [25, 15, "M"], [25, 16, "E"], [25, 17, "N"], [25, 18, "T"], [25, 19, "S"], [13, 26, "R"], [13, 27, "O"], [13, 28, "M"], [13, 29, "P"], [13, 30, "T"], [13, 31, "F"], [13, 32, "O"], [13, 33, "R"], [13, 34, "V"], [13, 35, "A"], [13, 36, "L"], [13, 37, "U"], [13, 38, "E"], [18, 0, "B"], [18, 1, "A"], [18, 2, "D"], [18, 3, "O"], [18, 4, "P"], [18, 5, "T"], [18, 6, "I"], [18, 7, "O"], [18, 8, "N"], [18, 9, "U"], [18, 10, "S"], [18, 11, "A"], [18, 12, "G"], [19, 26, "O"], [19, 27, "R"], [19, 28, "M"], [19, 29, "A"], [19, 30, "L"], [19, 31, "I"], [19, 32, "Z"], [19, 33, "E"], [19, 34, "C"], [19, 35, "H"], [19, 36, "O"], [19, 37, "I"], [19, 38, "C"], [19, 39, "E"], [8, 5, "R"], [8, 6, "E"], [8, 7, "A"], [8, 8, "D"], [8, 9, "L"], [8, 10, "I"], [8, 11, "N"], [8, 12, "E"], [8, 13, "P"], [8, 14, "R"], [8, 15, "O"], [8, 17, "P"], [8, 18, "T"], [26, 7, "E"], [27, 7, "S"], [28, 7, "O"], [29, 7, "L"], [30, 7, "V"], [31, 7, "E"], [32, 7, "C"], [33, 7, "O"], [34, 7, "N"], [35, 7, "T"], [36, 7, "E"], [37, 7, "X"], [38, 7, "T"], [23, 2, "P"], [23, 3, "A"], [23, 4, "S"], [23, 5, "S"], [23, 6, "W"], [23, 7, "O"], [23, 8, "R"], [23, 9, "D"], [23, 10, "O"], [23, 11, "P"], [23, 12, "T"], [23, 14, "O"], [23, 15, "N"], [16, 1, "P"], [16, 2, "A"], [16, 3, "T"], [16, 4, "C"], [16, 5, "H"], [16, 6, "E"], [16, 7, "D"], [16, 8, "P"], [16, 9, "D"], [16, 10, "B"], [16, 11, "I"], [16, 12, "N"], [16, 14, "T"], [24, 16, "L"], [26, 16, "S"], [27, 16, "S"], [28, 16, "U"], [29, 16, "S"], [30, 16, "E"], [31, 16, "S"], [32, 16, "R"], [33, 16, "A"], [34, 16, "W"], [35, 16, "M"], [36, 16, "O"], [37, 16, "D"], [38, 16, "E"], [26, 19, "P"], [27, 19, "L"], [28, 19, "I"], [29, 19, "T"], [30, 19, "A"], [31, 19, "R"], [32, 19, "G"], [33, 19, "S"], [34, 19, "T"], [35, 19, "R"], [36, 19, "I"], [37, 19, "N"], [38, 19, "G"], [13, 0, "G"], [13, 1, "E"], [13, 2, "T"], [13, 3, "B"], [13, 4, "I"], [13, 5, "N"], [13, 6, "A"], [13, 7, "R"], [13, 8, "Y"], [13, 9, "S"], [13, 10, "T"], [13, 11, "R"], [13, 12, "E"], [13, 14, "M"], [18, 29, "V"], [20, 29, "L"], [21, 29, "U"], [22, 29, "E"], [23, 29, "I"], [24, 29, "S"], [25, 29, "M"], [26, 29, "I"], [27, 29, "S"], [28, 29, "S"], [29, 29, "I"], [30, 29, "N"], [31, 29, "G"], [4, 30, "G"], [5, 30, "E"], [6, 30, "T"], [7, 30, "C"], [8, 30, "O"], [9, 30, "M"], [10, 30, "P"], [11, 30, "L"], [12, 30, "E"], [14, 30, "I"], [15, 30, "O"], [16, 30, "N"], [17, 30, "S"], [2, 34, "V"], [3, 34, "A"], [4, 34, "L"], [5, 34, "U"], [6, 34, "E"], [7, 34, "F"], [8, 34, "R"], [9, 34, "O"], [10, 34, "M"], [11, 34, "E"], [12, 34, "N"], [14, 34, "V"], [15, 34, "A"], [16, 34, "R"], [0, 37, "M"], [1, 37, "A"], [2, 37, "S"], [3, 37, "K"], [4, 37, "H"], [5, 37, "I"], [6, 37, "D"], [7, 37, "D"], [8, 37, "E"], [9, 37, "N"], [10, 37, "I"], [11, 37, "N"], [12, 37, "P"], [14, 37, "T"], [18, 33, "G"], [20, 33, "T"], [21, 33, "S"], [22, 33, "H"], [23, 33, "O"], [24, 33, "R"], [25, 33, "T"], [26, 33, "H"], [27, 33, "E"], [28, 33, "L"], [29, 33, "P"], [30, 33, "S"], [31, 33, "T"], [32, 33, "R"], [18, 27, "W"], [20, 27, "I"], [21, 27, "T"], [22, 27, "E"], [23, 27, "P"], [24, 27, "A"], [25, 27, "R"], [26, 27, "A"], [27, 27, "G"], [28, 27, "R"], [29, 27, "A"], [30, 27, "P"], [31, 27, "H"], [21, 1, "C"], [21, 2, "L"], [21, 3, "I"], [21, 4, "C"], [21, 5, "K"], [21, 6, "E"], [21, 7, "X"], [21, 8, "C"], [21, 9, "E"], [21, 10, "P"], [21, 11, "T"], [21, 12, "I"], [21, 14, "N"]], "entries": [{"n": 10, "dir": "across", "r": 11, "c": 13, "len": 14, "answer": "INTERPRETCOLOR", "clue": "Interprets a color value and returns the corresponding ANSI code. (14)", "origin": "click\\termui.py:616"}, {"n": 8, "dir": "down", "r": 10, "c": 23, "len": 14, "answer": "FORMATHELPTEXT", "clue": "Writes the help text to the formatter if it exists. (14)", "origin": "click\\core.py:1301"}, {"n": 5, "dir": "down", "r": 8, "c": 16, "len": 14, "answer": "MAKESUBCONTEXT", "clue": "Create a new context of the same type as this context, but for a new command. (14)", "origin": "click\\core.py:868"}, {"n": 9, "dir": "down", "r": 10, "c": 25, "len": 14, "answer": "COMPLETIONITEM", "clue": "Represents a completion value and metadata about the value. (14)", "origin": "click\\shell_completion.py:67"}, {"n": 6, "dir": "down", "r": 9, "c": 19, "len": 14, "answer": "FORMATCOMMANDS", "clue": "Extra format methods for multi methods that adds all the commands after the options. (14)", "origin": "click\\core.py:2001"}, {"n": 10, "dir": "down", "r": 11, "c": 13, "len": 15, "answer": "ISASCIIENCODING", "clue": "Checks if a given encoding is ascii. (15)", "origin": "click\\_compat.py:43"}, {"n": 7, "dir": "down", "r": 9, "c": 21, "len": 15, "answer": "GETBESTENCODING", "clue": "Returns the default stream encoding if not found. (15)", "origin": "click\\_compat.py:51"}, {"n": 22, "dir": "across", "r": 25, "c": 5, "len": 15, "answer": "FORMATARGUMENTS", "clue": "Writes all arguments into the formatter, if at least one is documented. (15)", "origin": "click\\core.py:1331"}, {"n": 12, "dir": "across", "r": 13, "c": 25, "len": 14, "answer": "PROMPTFORVALUE", "clue": "This is an alternative flow that can be activated in the full value processing if a value does not exist. (14)", "origin": "click\\core.py:3682"}, {"n": 14, "dir": "across", "r": 18, "c": 0, "len": 14, "answer": "BADOPTIONUSAGE", "clue": "Raised if an option is generally supplied but the use of the option was incorrect. (14)", "origin": "click\\exceptions.py:304"}, {"n": 18, "dir": "across", "r": 19, "c": 25, "len": 15, "answer": "NORMALIZECHOICE", "clue": "Normalize a choice value, used to map a passed string to a choice. (15)", "origin": "click\\types.py:388"}, {"n": 4, "dir": "across", "r": 8, "c": 5, "len": 14, "answer": "READLINEPROMPT", "clue": "Call a prompt function, passing the full prompt so readline can handle line editing and cursor positioning... (14)", "origin": "click\\termui.py:85"}, {"n": 23, "dir": "down", "r": 25, "c": 7, "len": 14, "answer": "RESOLVECONTEXT", "clue": "Produce the context hierarchy starting with the command and traversing the complete arguments. (14)", "origin": "click\\shell_completion.py:691"}, {"n": 20, "dir": "across", "r": 23, "c": 2, "len": 14, "answer": "PASSWORDOPTION", "clue": "A function in decorators.py (14)", "origin": "click\\decorators.py:400"}, {"n": 13, "dir": "across", "r": 16, "c": 1, "len": 14, "answer": "PATCHEDPDBINIT", "clue": "Default ``pdb.Pdb`` to real terminal streams during ``CliRunner`` isolation. (14)", "origin": "click\\testing.py:554"}, {"n": 21, "dir": "down", "r": 24, "c": 16, "len": 15, "answer": "LESSUSESRAWMODE", "clue": "Detect a raw-control-characters request in a ``less`` invocation. (15)", "origin": "click\\_termui_impl.py:518"}, {"n": 24, "dir": "down", "r": 25, "c": 19, "len": 14, "answer": "SPLITARGSTRING", "clue": "Split an argument string as with :func:`shlex.split`, but don't fail if the string is incomplete. (14)", "origin": "click\\shell_completion.py:598"}, {"n": 11, "dir": "across", "r": 13, "c": 0, "len": 15, "answer": "GETBINARYSTREAM", "clue": "Returns a system stream for byte processing. (15)", "origin": "click\\utils.py:333"}, {"n": 16, "dir": "down", "r": 18, "c": 29, "len": 14, "answer": "VALUEISMISSING", "clue": "A function in core.py (14)", "origin": "click\\core.py:2772"}, {"n": 3, "dir": "down", "r": 4, "c": 30, "len": 14, "answer": "GETCOMPLETIONS", "clue": "Determine the context and last complete command or parameter from the complete args. (14)", "origin": "click\\shell_completion.py:353"}, {"n": 2, "dir": "down", "r": 2, "c": 34, "len": 15, "answer": "VALUEFROMENVVAR", "clue": "Process the raw environment variable string for this parameter. (15)", "origin": "click\\core.py:2897"}, {"n": 1, "dir": "down", "r": 0, "c": 37, "len": 15, "answer": "MASKHIDDENINPUT", "clue": "Replace occurrences of ``value`` in ``message`` with a fixed mask. (15)", "origin": "click\\termui.py:61"}, {"n": 17, "dir": "down", "r": 18, "c": 33, "len": 15, "answer": "GETSHORTHELPSTR", "clue": "Gets short help for the command or makes it by shortening the long help string. (15)", "origin": "click\\core.py:1266"}, {"n": 15, "dir": "down", "r": 18, "c": 27, "len": 14, "answer": "WRITEPARAGRAPH", "clue": "Writes a paragraph into the buffer. (14)", "origin": "click\\formatting.py:217"}, {"n": 19, "dir": "across", "r": 21, "c": 1, "len": 14, "answer": "CLICKEXCEPTION", "clue": "An exception that Click can handle and show to the user. (14)", "origin": "click\\exceptions.py:35"}]};
+const key=(r,c)=>r+','+c;
+const cellsOf=e=>{const a=[];for(let i=0;i<e.len;i++)a.push(e.dir==='across'?key(e.r,e.c+i):key(e.r+i,e.c));return a;};
+const inputs={},numAt={};
+D.entries.forEach(e=>{numAt[key(e.r,e.c)]=e.n;});
+const on=new Set(D.cells.map(c=>key(c[0],c[1])));
+let active=null,last=null;
+
+function entriesAt(k){return D.entries.filter(e=>cellsOf(e).includes(k));}
+function highlight(){
+  Object.values(inputs).forEach(i=>i.classList.remove('hl'));
+  if(active)cellsOf(active).forEach(k=>inputs[k].classList.add('hl'));
+  document.querySelectorAll('.clue').forEach(d=>d.classList.toggle('sel',active&&+d.dataset.i===D.entries.indexOf(active)));
+}
+function focusCell(k){inputs[k].focus();}
+function advance(k,step){
+  if(!active)return;
+  const ks=cellsOf(active),j=ks.indexOf(k)+step;
+  if(j>=0&&j<ks.length)focusCell(ks[j]);
+}
+function show(i){document.getElementById('o'+i).hidden=false;}
+
+const gridEl=document.getElementById('grid');
+for(let r=0;r<D.h;r++){
+  const tr=document.createElement('tr');
+  for(let c=0;c<D.w;c++){
+    const td=document.createElement('td'),k=key(r,c);
+    if(on.has(k)){
+      td.className='on';
+      if(numAt[k]){const s=document.createElement('span');s.className='n';s.textContent=numAt[k];td.appendChild(s);}
+      const inp=document.createElement('input');inp.maxLength=1;inputs[k]=inp;
+      inp.addEventListener('focus',()=>{
+        const here=entriesAt(k);
+        if(!active||!cellsOf(active).includes(k))active=here.find(e=>active&&e.dir===active.dir)||here[0];
+        highlight();
+      });
+      inp.addEventListener('click',()=>{
+        const here=entriesAt(k);
+        if(last===k&&here.length>1)active=here.find(e=>e!==active);
+        last=k;highlight();
+      });
+      inp.addEventListener('input',()=>{
+        inp.value=inp.value.replace(/[^a-z]/gi,'').toUpperCase();
+        inp.classList.remove('good','bad');
+        if(inp.value)advance(k,1);
+      });
+      inp.addEventListener('keydown',ev=>{
+        if(ev.key==='Backspace'&&!inp.value)advance(k,-1);
+      });
+      td.appendChild(inp);
+    }
+    tr.appendChild(td);
+  }
+  gridEl.appendChild(tr);
+}
+
+D.entries.map((e,i)=>({e,i})).sort((a,b)=>a.e.n-b.e.n).forEach(({e,i})=>{
+  const d=document.createElement('div');d.className='clue';d.dataset.i=i;
+  d.innerHTML='<b>'+e.n+'.</b> ';
+  d.appendChild(document.createTextNode(e.clue));
+  const o=document.createElement('div');o.className='origin';o.id='o'+i;o.hidden=true;
+  o.textContent='\u2192 '+e.answer+'  ('+e.origin+')';
+  d.appendChild(o);
+  d.addEventListener('click',()=>{active=e;highlight();focusCell(cellsOf(e)[0]);});
+  document.getElementById(e.dir).appendChild(d);
+});
+
+function check(){
+  D.entries.forEach((e,i)=>{
+    let all=true;
+    cellsOf(e).forEach((k,j)=>{
+      const inp=inputs[k];inp.classList.remove('good','bad');
+      if(inp.value)inp.classList.add(inp.value===e.answer[j]?'good':'bad');
+      if(inp.value!==e.answer[j])all=false;
+    });
+    if(all)show(i);
+  });
+}
+function revealWord(){
+  if(!active)return;
+  cellsOf(active).forEach((k,j)=>{inputs[k].value=active.answer[j];});
+  show(D.entries.indexOf(active));check();
+}
+function revealAll(){D.entries.forEach((e,i)=>{cellsOf(e).forEach((k,j)=>{inputs[k].value=e.answer[j];});show(i);});check();}
+function clearAll(){
+  Object.values(inputs).forEach(i=>{i.value='';i.classList.remove('good','bad');});
+  D.entries.forEach((e,i)=>{document.getElementById('o'+i).hidden=true;});
+}
+</script></body></html>

@@ -7,7 +7,7 @@ def number_entries(entries):
     return {cell: n for n, cell in enumerate(starts, start=1)}
 
 
-def render(grid, entries):
+def render(grid, entries, clues=None):
     if not grid:
         return "Empty grid."
     utf8 = (sys.stdout.encoding or "").lower().replace("-", "") == "utf8"
@@ -32,7 +32,9 @@ def render(grid, entries):
         out = [title]
         chosen = [e for e in entries if e.direction == direction]
         for e in sorted(chosen, key=lambda e: numbers[(e.row, e.col)]):
-            out.append(f"  {numbers[(e.row, e.col)]}. {e.answer}  ({e.file}:{e.line})")
+            n = numbers[(e.row, e.col)]
+            clue = (clues or {}).get(e.answer, "")
+            out.append(f"  {n}. {clue}  -> {e.answer}  ({e.file}:{e.line})")
         return out
 
     lines += section("ACROSS", "across") + [""] + section("DOWN", "down")

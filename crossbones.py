@@ -2,6 +2,8 @@ import json
 import os
 import sys
 
+import clues
+import html_export
 import placer
 import renderer
 import verifier
@@ -55,16 +57,18 @@ def main(argv):
         return 0
 
     symbol_map = {s["answer"]: s for s in symbols}
-    failures = verifier.verify_grid(grid, entries, symbol_map, load_clues())
+    clue_map = clues.get_clues(entries, symbol_map)
+    failures = verifier.verify_grid(grid, entries, symbol_map, clue_map)
     for f in failures:
         print(f"VERIFY FAILED: {f.entry.answer} "
               f"({f.entry.file}:{f.entry.line}) check={f.check}")
     if not failures:
         print(f"Verified: all {len(entries)} entries are real symbols.\n")
 
-    print(renderer.render(grid, entries))
+    print(renderer.render(grid, entries, clue_map))
+    path = html_export.write_html(grid, entries, clue_map)
+    print(f"\nPlayable crossword written to {path}")
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
