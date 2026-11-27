@@ -4,31 +4,42 @@ from renderer import number_entries
 TEMPLATE = r"""<!doctype html>
 <html><head><meta charset="utf-8"><title>Crossbones</title>
 <style>
-body{font-family:system-ui,sans-serif;margin:20px;background:#14121a;color:#eee}
-h1{margin:0}.sub{color:#aaa;margin:4px 0 16px}
+body{font-family:Georgia,'Times New Roman',serif;margin:20px;min-height:100vh;color:#d9d0bb;
+ background:radial-gradient(ellipse at 50% -10%,#3a0a0e 0%,#0a0708 60%,#000 100%)}
+h1{margin:0;display:flex;align-items:center;gap:14px;font-size:42px;color:#e8dfc8;
+ letter-spacing:6px;text-transform:uppercase;text-shadow:0 0 14px #b3121b,0 2px 0 #000}
+h1 svg{filter:drop-shadow(0 0 6px #b3121b)}
+.sub{color:#9a8f78;margin:6px 0 18px;font-style:italic;letter-spacing:1px;
+ border-left:3px solid #b3121b;padding-left:10px}
 .wrap{display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start}
-#gridbox{overflow:auto;max-width:100%}
+#gridbox{overflow:auto;max-width:100%;padding:12px;background:#0f0b0b;
+ border:2px solid #3b1a1a;border-radius:4px;box-shadow:0 0 24px #b3121b44,inset 0 0 20px #000}
 table{border-collapse:collapse}
 td{width:30px;height:30px;padding:0;position:relative}
-td.on input{width:100%;height:100%;box-sizing:border-box;border:1px solid #555;text-align:center;
- font:bold 16px monospace;padding:0;background:#fff;color:#111;text-transform:uppercase}
-td.on input.hl{background:#ffe9a8}
-td.on input.good{background:#b9f0c0}
-td.on input.bad{background:#ffb3b3}
-.n{position:absolute;top:0;left:2px;font-size:9px;color:#333;pointer-events:none}
+td.on input{width:100%;height:100%;box-sizing:border-box;border:1px solid #5a4a3a;text-align:center;
+ font:bold 16px 'Courier New',monospace;padding:0;background:#e8dfc8;color:#1a1210;text-transform:uppercase}
+td.on input.hl{background:#d9b98a}
+td.on input.good{background:#9fbf8a}
+td.on input.bad{background:#d65a5a;color:#fff}
+td.on input:focus{outline:2px solid #b3121b;background:#f4ead2}
+.n{position:absolute;top:0;left:2px;font-size:9px;color:#6a1016;font-weight:bold;pointer-events:none}
 .clues{max-width:560px}
-.clue{padding:4px 6px;cursor:pointer;border-radius:4px}
-.clue:hover,.clue.sel{background:#2d2840}
-.origin{color:#9fe3a8;font-family:monospace;font-size:12px;margin-top:2px}
-button{margin:0 6px 12px 0;padding:6px 12px;border:0;border-radius:6px;background:#6c3fd6;color:#fff;cursor:pointer}
-h3{margin:14px 0 4px}
+.clue{padding:5px 8px;cursor:pointer;border-radius:2px;border-left:2px solid transparent}
+.clue:hover,.clue.sel{background:#2a0e11;border-left-color:#b3121b}
+.origin{color:#c9473f;font-family:'Courier New',monospace;font-size:12px;margin-top:2px}
+button{margin:0 6px 12px 0;padding:7px 14px;border:1px solid #b3121b;border-radius:2px;
+ background:#1a0809;color:#e8dfc8;font-family:Georgia,serif;letter-spacing:1px;
+ text-transform:uppercase;font-size:12px;cursor:pointer}
+button:hover{background:#b3121b;color:#fff;box-shadow:0 0 10px #b3121b}
+h3{margin:16px 0 4px;color:#b3121b;letter-spacing:4px;text-transform:uppercase;
+ border-bottom:1px solid #3b1a1a;padding-bottom:4px}
 </style></head><body>
-<h1>Crossbones</h1>
-<div class="sub">Solve the puzzle to learn the codebase. Every answer is a verified symbol from the repo.</div>
-<button onclick="check()">Check</button>
-<button onclick="revealWord()">Reveal word</button>
-<button onclick="revealAll()">Reveal all</button>
-<button onclick="clearAll()">Clear</button>
+<h1><svg width="56" height="56" viewBox="0 0 64 64"><g fill="#e8dfc8"><g transform="rotate(45 32 32)"><rect x="6" y="28" width="52" height="8" rx="4"/><circle cx="8" cy="26" r="6"/><circle cx="8" cy="38" r="6"/><circle cx="56" cy="26" r="6"/><circle cx="56" cy="38" r="6"/></g><g transform="rotate(-45 32 32)"><rect x="6" y="28" width="52" height="8" rx="4"/><circle cx="8" cy="26" r="6"/><circle cx="8" cy="38" r="6"/><circle cx="56" cy="26" r="6"/><circle cx="56" cy="38" r="6"/></g></g></svg>Crossbones</h1>
+<div class="sub">Dig up the code. Every answer is a verified symbol. Nothing here is a ghost.</div>
+<button onclick="check()">Judge</button>
+<button onclick="revealWord()">Exhume word</button>
+<button onclick="revealAll()">Dig up all</button>
+<button onclick="clearAll()">Bury</button>
 <div class="wrap">
  <div id="gridbox"><table id="grid"></table></div>
  <div class="clues"><h3>Across</h3><div id="across"></div><h3>Down</h3><div id="down"></div></div>
