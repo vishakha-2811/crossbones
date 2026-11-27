@@ -12,3 +12,4 @@ Turns a Python codebase into a crossword that teaches the code.
 - Put tests in tests/ and make them pass before finishing a task.
 - Do one task at a time. Do not refactor unrelated files.
 - extractor.py already exists. Do not rewrite it.
+- Run tests with `python -m unittest discover tests`. Never use pytest. Never run pip install.
