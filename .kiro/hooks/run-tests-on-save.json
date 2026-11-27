@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Run tests on save",
+      "trigger": "PostFileSave",
+      "action": {
+        "type": "command",
+        "command": "python -m unittest discover tests"
+      },
+      "description": "Runs the unittest suite when placer.py or verifier.py is saved.",
+      "matcher": "(placer|verifier)\\.py$",
+      "enabled": true
+    }
+  ]
+}
