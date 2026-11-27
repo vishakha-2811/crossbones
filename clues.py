@@ -40,16 +40,18 @@ def llm_clue(sym, key):
         f"Kind: {sym['kind']}\nName: {sym['name']}\nDocstring: {sym.get('doc') or '(none)'}"
     )
     body = json.dumps({
-        "model": "claude-haiku-5-5",
-        "max_tokens": 60,
+        "model": "openai/gpt-oss-20b",
+        "max_tokens": 400,
+        "reasoning_effort": "low",
         "messages": [{"role": "user", "content": prompt}],
     }).encode()
     req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages", data=body,
-        headers={"content-type": "application/json", "x-api-key": key,
-                 "anthropic-version": "2023-06-01"})
+        "https://api.groq.com/openai/v1/chat/completions", data=body,
+        headers={"content-type": "application/json",
+                 "authorization": f"Bearer {key}",
+                 "user-agent": "crossbones/1.0"})
     with urllib.request.urlopen(req, timeout=30) as resp:
-        return json.load(resp)["content"][0]["text"].strip()
+        return json.load(resp)["choices"][0]["message"]["content"].strip().strip('"')
 
 
 def make_clue(sym, key):
@@ -59,7 +61,8 @@ def make_clue(sym, key):
             if clue and not leaks(clue, sym["answer"]):
                 return f"{clue} ({len(sym['answer'])})"
         except Exception as err:
-            print(f"LLM clue failed for {sym['answer']}: {err}")
+            detail = err.read().decode()[:200] if hasattr(err, "read") else ""
+            print(f"LLM clue failed for {sym['answer']}: {err} {detail}")
     return template_clue(sym)
 
 
@@ -72,7 +75,7 @@ def get_clues(entries, symbol_map):
                 cache = json.load(f)
         except json.JSONDecodeError:
             cache = {}
-    key = os.environ.get("ANTHROPIC_API_KEY")
+    key = os.environ.get("GROQ_API_KEY")
     for e in entries:
         if e.answer not in cache:
             cache[e.answer] = make_clue(symbol_map[e.answer], key)
