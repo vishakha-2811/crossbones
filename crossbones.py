@@ -9,8 +9,15 @@ from extractor import extract_symbols
 
 
 def select_candidates(symbols, limit=25):
-    usable = [s for s in symbols
-              if s["answer"].isalpha() and 4 <= len(s["answer"]) <= 15]
+    usable = []
+    for s in symbols:
+        answer = s["answer"]
+        if not (answer.isalpha() and 4 <= len(answer) <= 15):
+            continue
+        doc = s.get("doc") or ""
+        if answer.lower() in doc.lower():
+            continue  # its own docstring would give the answer away
+        usable.append(s)
     usable.sort(key=lambda s: (not s.get("doc"), -len(s["answer"])))
     seen, chosen = set(), []
     for s in usable:
