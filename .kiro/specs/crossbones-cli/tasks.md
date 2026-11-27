@@ -48,7 +48,7 @@ Implement the four new modules (`placer.py`, `verifier.py`, `renderer.py`, `cros
 - [x] 5. Checkpoint — verify placement logic before continuing
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 6. Create `verifier.py` with the `Failure` named tuple and `verify_grid`
+- [x] 6. Create `verifier.py` with the `Failure` named tuple and `verify_grid`
   - [x] 6.1 Define `Failure = collections.namedtuple("Failure", "entry check detail")` in `verifier.py`
     - Valid `check` values: `"symbol"`, `"grid-word"`, `"clue-containment"`, `"crossing"`
     - _Requirements: 4.1, 4.2, 4.3, 4.4_
@@ -63,15 +63,15 @@ Implement the four new modules (`placer.py`, `verifier.py`, `renderer.py`, `cros
   - [x] 6.4 Implement the `"crossing"` check inside `verify_grid`
     - For each cell of the entry covered by another entry, recompute the other entry's required letter at that cell and compare; mismatch → `Failure(..., "crossing", ...)`
     - _Requirements: 4.4_
-  - [ ] 6.5 Implement `verify_grid(grid, entries, symbols, clues) -> list[Failure]`
+  - [x] 6.5 Implement `verify_grid(grid, entries, symbols, clues) -> list[Failure]`
     - Run all four checks for every entry; collect all failures; return the list (empty = all passed)
     - _Requirements: 4.5, 4.6_
 
-- [ ] 7. Create `renderer.py`
-  - [ ] 7.1 Implement `number_entries(entries) -> dict[tuple[int, int], int]`
+- [x] 7. Create `renderer.py`
+  - [x] 7.1 Implement `number_entries(entries) -> dict[tuple[int, int], int]`
     - Scan bounding-box cells in row-major order; assign the next number to any cell that starts an across or down entry; across and down entries starting in the same cell share one number
     - _Requirements: 5.2_
-  - [ ] 7.2 Implement `render(grid, entries) -> str`
+  - [x] 7.2 Implement `render(grid, entries) -> str`
     - Compute bounding box from grid keys; render rectangle: filled cells show the letter, empty cells show `·` (or `#` if `sys.stdout.encoding` is not UTF-8), one space between columns
     - Prefix each entry's first cell with `[n]` where `n` is its number
     - After the grid, print `ACROSS` and `DOWN` sections: each line is `  n. ANSWER  (file:line)`
@@ -82,12 +82,12 @@ Implement the four new modules (`placer.py`, `verifier.py`, `renderer.py`, `cros
     - Test: empty-cell character used for unfilled cells; `file:line` origin appears in output
     - _Requirements: 5.1, 5.2, 5.3, 5.4_
 
-- [ ] 8. Create `crossbones.py` (CLI entry point)
-  - [ ] 8.1 Implement `select_candidates(symbols, limit=25) -> list[dict]`
+- [x] 8. Create `crossbones.py` (CLI entry point)
+  - [x] 8.1 Implement `select_candidates(symbols, limit=25) -> list[dict]`
     - Filter: answer must be alphabetic and 4–15 letters (defensive re-check)
     - Sort key: `(doc present descending, answer length descending)`; drop duplicate answers; cap at `limit`
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6_
-  - [ ] 8.2 Implement `main(argv) -> int`
+  - [x] 8.2 Implement `main(argv) -> int`
     - Parse `argv[1]` as `repo_path`; missing/non-directory/no-arg → usage message to stderr, return non-zero
     - Call `extract_symbols(repo_path)`; empty → "no symbols found" message, return 0
     - Call `select_candidates`, `placer.build_grid`; zero entries → "no symbols found" message, return 0
@@ -95,44 +95,44 @@ Implement the four new modules (`placer.py`, `verifier.py`, `renderer.py`, `cros
     - Call `verifier.verify_grid`; print each failure (answer, origin, check name) to stdout before the grid
     - Print `renderer.render(grid, entries)` to stdout; return 0
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 4.6, 5.4, 5.5_
-  - [ ] 8.3 Add `if __name__ == "__main__": sys.exit(main(sys.argv))` guard
+  - [x] 8.3 Add `if __name__ == "__main__": sys.exit(main(sys.argv))` guard
     - _Requirements: 1.1_
   - [ ]* 8.4 Write unit tests for `select_candidates`
     - Test: docstring symbols preferred; 25-cap enforced; duplicate answers dropped; longest first; 4–15 letter filter
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-- [ ] 9. Create the fixture repo in `tests/fixtures/`
+- [x] 9. Create the fixture repo in `tests/fixtures/`
   - Create `tests/fixtures/sample_repo/utils.py` with two functions and a class, each with docstrings, chosen so their normalized answers are ≥ 4 letters and do not overlap
   - Create `tests/fixtures/sample_repo/models.py` with two classes with docstrings
   - Ensure the fixture yields ≥ 5 usable symbols via `extract_symbols`, enough to build a small grid
   - _Requirements: (supports P5 round-trip tests)_
 
-- [ ] 10. Write P1 grid-legality tests in `tests/test_placer.py`
-  - [ ] 10.1 `test_p1_first_word_placed`: `build_grid` with one candidate; assert one entry; grid cells spell the answer
+- [x] 10. Write P1 grid-legality tests in `tests/test_placer.py`
+  - [x] 10.1 `test_p1_first_word_placed`: `build_grid` with one candidate; assert one entry; grid cells spell the answer
     - _Requirements: P1, 3.1_
-  - [ ] 10.2 `test_p1_crossing_entries_agree`: two candidates sharing a letter; assert both entries' letters agree at the shared cell
+  - [x] 10.2 `test_p1_crossing_entries_agree`: two candidates sharing a letter; assert both entries' letters agree at the shared cell
     - _Requirements: P1, 3.2, 6.3_
-  - [ ] 10.3 `test_p1_no_collision_or_adjacency`: multi-candidate grid; assert no two entries conflict at any cell; assert no illegal adjacency by running `causes_adjacency` on each entry against the final grid
+  - [x] 10.3 `test_p1_no_collision_or_adjacency`: multi-candidate grid; assert no two entries conflict at any cell; assert no illegal adjacency by running `causes_adjacency` on each entry against the final grid
     - _Requirements: P1, 3.4, 3.5_
-  - [ ] 10.4 `test_p1_dropped_candidates_absent`: a candidate that cannot legally cross any placed entry must not appear in the final entries list
+  - [x] 10.4 `test_p1_dropped_candidates_absent`: a candidate that cannot legally cross any placed entry must not appear in the final entries list
     - _Requirements: P1, 3.3_
 
-- [ ] 11. Write P4 verification-detection tests in `tests/test_verifier.py`
-  - [ ] 11.1 `test_p4_symbol_check`: entry whose answer is absent from the symbol set → failure with check `"symbol"`
+- [x] 11. Write P4 verification-detection tests in `tests/test_verifier.py`
+  - [x] 11.1 `test_p4_symbol_check`: entry whose answer is absent from the symbol set → failure with check `"symbol"`
     - _Requirements: P4, 4.1_
-  - [ ] 11.2 `test_p4_grid_word_check`: grid letters differ from entry answer → failure with check `"grid-word"`
+  - [x] 11.2 `test_p4_grid_word_check`: grid letters differ from entry answer → failure with check `"grid-word"`
     - _Requirements: P4, 4.2_
-  - [ ] 11.3 `test_p4_clue_containment`: clue containing the answer → failure `"clue-containment"`; clue without it → no failure
+  - [x] 11.3 `test_p4_clue_containment`: clue containing the answer → failure `"clue-containment"`; clue without it → no failure
     - _Requirements: P4, 4.3_
-  - [ ] 11.4 `test_p4_crossing`: two entries requiring different letters at a shared cell → failure `"crossing"`
+  - [x] 11.4 `test_p4_crossing`: two entries requiring different letters at a shared cell → failure `"crossing"`
     - _Requirements: P4, 4.4_
-  - [ ] 11.5 `test_p4_no_clue_skipped`: entry with no clue and no doc → no `"clue-containment"` failure
+  - [x] 11.5 `test_p4_no_clue_skipped`: entry with no clue and no doc → no `"clue-containment"` failure
     - _Requirements: P4, 4.7_
 
-- [ ] 12. Write P5 round-trip and CLI end-to-end tests in `tests/test_integration.py`
-  - [ ] 12.1 `test_p5_placer_output_accepted`: run full pipeline on fixture repo; `verify_grid` returns empty failures list
+- [x] 12. Write P5 round-trip and CLI end-to-end tests in `tests/test_integration.py`
+  - [x] 12.1 `test_p5_placer_output_accepted`: run full pipeline on fixture repo; `verify_grid` returns empty failures list
     - _Requirements: P5_
-  - [ ] 12.2 `test_p5_cli_end_to_end`: call `crossbones.main` with fixture repo path (patch `sys.argv`); capture stdout; assert exit code 0, grid block present, each entry line has `file:line` origin
+  - [x] 12.2 `test_p5_cli_end_to_end`: call `crossbones.main` with fixture repo path (patch `sys.argv`); capture stdout; assert exit code 0, grid block present, each entry line has `file:line` origin
     - _Requirements: P5, 1.1, 5.4, 5.5_
   - [ ]* 12.3 Write CLI usage-error tests in `tests/test_cli.py`
     - Test: no args → non-zero exit, usage on stderr

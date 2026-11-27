@@ -164,6 +164,242 @@
         "executionId": "914be824-4f1f-4cb6-9b0f-256accdf9119",
         "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
         "timestamp": 1795753381585
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813338201
+      }
+    ],
+    "6. Create `verifier.py` with the `Failure` named tuple and `verify_grid`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813338326
+      }
+    ],
+    "7.1 Implement `number_entries(entries) -> dict[tuple[int, int], int]`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813349931
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813351443
+      }
+    ],
+    "7.2 Implement `render(grid, entries) -> str`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813353018
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813354413
+      }
+    ],
+    "7. Create `renderer.py`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813354479
+      }
+    ],
+    "8.1 Implement `select_candidates(symbols, limit=25) -> list[dict]`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813355917
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813357437
+      }
+    ],
+    "8.2 Implement `main(argv) -> int`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813359212
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813360619
+      }
+    ],
+    "8.3 Add `if __name__ == \"__main__\": sys.exit(main(sys.argv))` guard": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813362360
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813364255
+      }
+    ],
+    "8. Create `crossbones.py` (CLI entry point)": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813364375
+      }
+    ],
+    "9. Create the fixture repo in `tests/fixtures/`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813366283
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813496924
+      }
+    ],
+    "10.1 `test_p1_first_word_placed`: `build_grid` with one candidate; assert one entry; grid cells spell the answer": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813499445
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813565960
+      }
+    ],
+    "10.2 `test_p1_crossing_entries_agree`: two candidates sharing a letter; assert both entries' letters agree at the shared cell": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813568012
+      }
+    ],
+    "10.3 `test_p1_no_collision_or_adjacency`: multi-candidate grid; assert no two entries conflict at any cell; assert no illegal adjacency by running `causes_adjacency` on each entry against the final grid": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813570096
+      }
+    ],
+    "10.4 `test_p1_dropped_candidates_absent`: a candidate that cannot legally cross any placed entry must not appear in the final entries list": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813572040
+      }
+    ],
+    "10. Write P1 grid-legality tests in `tests/test_placer.py`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813572356
+      }
+    ],
+    "11.1 `test_p4_symbol_check`: entry whose answer is absent from the symbol set → failure with check `\"symbol\"`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813577459
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813579590
+      }
+    ],
+    "11.2 `test_p4_grid_word_check`: grid letters differ from entry answer → failure with check `\"grid-word\"`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813582042
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813584136
+      }
+    ],
+    "11.3 `test_p4_clue_containment`: clue containing the answer → failure `\"clue-containment\"`; clue without it → no failure": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813586059
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813587835
+      }
+    ],
+    "11.4 `test_p4_crossing`: two entries requiring different letters at a shared cell → failure `\"crossing\"`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813589247
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813590653
+      }
+    ],
+    "11.5 `test_p4_no_clue_skipped`: entry with no clue and no doc → no `\"clue-containment\"` failure": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813592210
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813593852
+      }
+    ],
+    "11. Write P4 verification-detection tests in `tests/test_verifier.py`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813593950
+      }
+    ],
+    "12.1 `test_p5_placer_output_accepted`: run full pipeline on fixture repo; `verify_grid` returns empty failures list": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813595778
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795814510460
+      }
+    ],
+    "12.2 `test_p5_cli_end_to_end`: call `crossbones.main` with fixture repo path (patch `sys.argv`); capture stdout; assert exit code 0, grid block present, each entry line has `file:line` origin": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795813597446
+      },
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795814512261
+      }
+    ],
+    "12. Write P5 round-trip and CLI end-to-end tests in `tests/test_integration.py`": [
+      {
+        "executionId": "d4550447-480f-43ec-8cba-b9aace622a6d",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795814512333
       }
     ]
   }
