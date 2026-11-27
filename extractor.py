@@ -51,6 +51,11 @@ def extract_symbols(repo_path):
 
 
 if __name__ == "__main__":
-    repo = sys.argv[1]
-    for s in extract_symbols(repo):
+    if len(sys.argv) < 2 or not os.path.isdir(sys.argv[1]):
+        print("Usage: python extractor.py <path to a folder>")
+        print("That folder was not found. Check the path.")
+        sys.exit(1)
+    results = extract_symbols(sys.argv[1])
+    print(f"Found {len(results)} usable symbols")
+    for s in results:
         print(f'{s["answer"]:<16} {s["kind"]:<9} {s["file"]}:{s["line"]}')
