@@ -1,0 +1,103 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Create the `Entry` dataclass and grid type in `placer.py`": [
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752244316
+      },
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752383599
+      }
+    ],
+    "2.1 Implement `causes_collision(grid, word, row, col, direction) -> bool`": [
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752385828
+      },
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752468498
+      }
+    ],
+    "2.2 Implement `causes_adjacency(grid, word, row, col, direction, intersection_cell) -> bool`": [
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752388227
+      },
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752470034
+      }
+    ],
+    "2. Implement collision and adjacency checks in `placer.py`": [
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752470081
+      }
+    ],
+    "3.1 Implement `can_place(grid, entries, word, row, col, direction) -> bool`": [
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752472117
+      },
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752538196
+      }
+    ],
+    "3.2 Implement `place_first(grid, entries, candidate) -> None`": [
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752540349
+      },
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752608825
+      }
+    ],
+    "3.3 Implement `try_place(grid, entries, candidate) -> bool`": [
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752542130
+      },
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752610381
+      }
+    ],
+    "3. Implement `can_place` and the core placement helpers in `placer.py`": [
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752610434
+      }
+    ],
+    "4. Implement `build_grid` in `placer.py`": [
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752611825
+      },
+      {
+        "executionId": "7cb39bf4-22e5-42e8-8778-5e30e52316a9",
+        "chatSessionId": "sess_efa4ec99-428d-40ec-a1ba-0fd03ca574db",
+        "timestamp": 1795752666367
+      }
+    ]
+  }
+}
