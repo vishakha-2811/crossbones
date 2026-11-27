@@ -45,22 +45,22 @@ Implement the four new modules (`placer.py`, `verifier.py`, `renderer.py`, `cros
   - Return `({}, [])` if candidates is empty
   - _Requirements: 3.1, 3.2, 3.3, 3.6, 3.7_
 
-- [ ] 5. Checkpoint — verify placement logic before continuing
+- [x] 5. Checkpoint — verify placement logic before continuing
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 6. Create `verifier.py` with the `Failure` named tuple and `verify_grid`
-  - [ ] 6.1 Define `Failure = collections.namedtuple("Failure", "entry check detail")` in `verifier.py`
+  - [x] 6.1 Define `Failure = collections.namedtuple("Failure", "entry check detail")` in `verifier.py`
     - Valid `check` values: `"symbol"`, `"grid-word"`, `"clue-containment"`, `"crossing"`
     - _Requirements: 4.1, 4.2, 4.3, 4.4_
-  - [ ] 6.2 Implement the `"symbol"` and `"grid-word"` checks inside `verify_grid`
+  - [x] 6.2 Implement the `"symbol"` and `"grid-word"` checks inside `verify_grid`
     - symbol: `entry.answer not in symbols_set` → append `Failure(..., "symbol", ...)`
     - grid-word: read cells from grid along the entry's direction; joined string ≠ answer → append `Failure(..., "grid-word", ...)`
     - _Requirements: 4.1, 4.2_
-  - [ ] 6.3 Implement the `"clue-containment"` check inside `verify_grid`
+  - [x] 6.3 Implement the `"clue-containment"` check inside `verify_grid`
     - Resolve clue: `clues_cache[answer]` if present, else `symbol doc` if non-empty, else skip
     - Fail if `entry.answer.lower() in clue.lower()` (Req 4.3); skip entirely when no clue (Req 4.7)
     - _Requirements: 4.3, 4.7_
-  - [ ] 6.4 Implement the `"crossing"` check inside `verify_grid`
+  - [x] 6.4 Implement the `"crossing"` check inside `verify_grid`
     - For each cell of the entry covered by another entry, recompute the other entry's required letter at that cell and compare; mismatch → `Failure(..., "crossing", ...)`
     - _Requirements: 4.4_
   - [ ] 6.5 Implement `verify_grid(grid, entries, symbols, clues) -> list[Failure]`
